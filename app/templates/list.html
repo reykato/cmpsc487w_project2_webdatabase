@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <div class="grid-container">
+        <a href="/app/itemform">Add Item</a><br><br><br>
+        <a href="{% url 'sortbyid' %}">Sort by ID</a>
+        <a href="{% url 'sortbyname' %}">Sort by Name</a><br><br>
+        <form method="GET" action="{% url 'list' %}">
+            <input type="text" name="q" placeholder="Search by ID or keywords"/>
+        </form>
+    </div>
+    <div>
+        <table>
+            <tr>
+                <th/>
+                <th>Image</th>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Description</th>
+            </tr>
+            {% for item in items %}
+                <tr>
+                    <td style="text-align: center; width: 70px"><a style="color: #22b2cb" href="{% url 'edititem' item.id %}">Edit</a><br>
+                        <a style="color: #ff0000" href="{% url 'deleteitem' item.id %}">Delete</a></td>
+                    <td style="width: 60px"><img style="width:50px" src='{{item.image_url}}'/></td>
+                    <td style="width: 15px">{{item.id}}</td>
+                    <td>{{item.name}}</td>
+                    <td>{{item.description}}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+</html>
